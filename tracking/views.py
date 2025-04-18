@@ -65,7 +65,20 @@ def add_to_profile(request, code):
 @staff_member_required
 def admin_panel(request):
     form = BulkTrackingUpdateForm()
-    return render(request, 'tracking/admin_panel.html', {'form': form})
+    
+    # Добавьте расчет статистики
+    tracking_count = TrackingCode.objects.count()
+    delivered_count = TrackingCode.objects.filter(status=5).count()
+    in_transit_count = TrackingCode.objects.filter(status__in=[1, 2, 3, 4]).count()
+    
+    context = {
+        'form': form,
+        'tracking_count': tracking_count,
+        'delivered_count': delivered_count,
+        'in_transit_count': in_transit_count
+    }
+    
+    return render(request, 'tracking/admin_panel.html', context)
 
 @staff_member_required
 def update_tracking_codes(request):
