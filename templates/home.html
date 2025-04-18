@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Win Logistics - Отслеживание посылок{% endblock %}
+{% block title %}Win Logistics - Главная{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -20,6 +20,7 @@
                 </a>
                 {% endif %}
             </div>
+            {% if not user.is_authenticated %}
             <div class="bg-light p-3 rounded-3 border-start border-5 border-primary">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
         <div class="col-lg-6 mt-5 mt-lg-0 text-center">
             <img src="{% static 'images/logistics.svg' %}" alt="Logistics illustration" class="img-fluid rounded-3 shadow-lg" style="max-height: 400px;">
@@ -78,9 +80,6 @@
                     <h3 class="card-title h4">Простой поиск</h3>
                     <p class="card-text">Быстро находите информацию о ваших посылках по трек-коду в нашей системе.</p>
                 </div>
-                <div class="card-footer bg-transparent border-0 text-center pb-4">
-                    <a href="{% url 'tracking_home' %}" class="btn btn-sm btn-outline-primary">Попробовать</a>
-                </div>
             </div>
         </div>
         
@@ -93,9 +92,6 @@
                     <h3 class="card-title h4">Точное отслеживание</h3>
                     <p class="card-text">Получайте актуальную информацию о местонахождении вашего товара в реальном времени.</p>
                 </div>
-                <div class="card-footer bg-transparent border-0 text-center pb-4">
-                    <a href="{% url 'tracking_home' %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
-                </div>
             </div>
         </div>
         
@@ -107,9 +103,6 @@
                     </div>
                     <h3 class="card-title h4">Личный кабинет</h3>
                     <p class="card-text">Сохраняйте трек-коды в личном кабинете для быстрого доступа к информации о доставке.</p>
-                </div>
-                <div class="card-footer bg-transparent border-0 text-center pb-4">
-                    <a href="{% url 'register' %}" class="btn btn-sm btn-outline-primary">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -134,7 +127,7 @@
                             <p class="text-muted mb-0">Укажите трек-код вашей посылки в поиске. Трек-код обычно содержится в письме от продавца или транспортной компании.</p>
                             <div class="bg-white p-3 mt-3 rounded-3 shadow-sm">
                                 <div class="d-flex align-items-center">
-                                    <i class="fas fa-lightbulb text-warning me-3 fa-2x"></i>
+                                    <i class="fas fa-lightbulb text-warning me-3"></i>
                                     <small>Трек-код может выглядеть примерно так: WL123456789KZ</small>
                                 </div>
                             </div>
@@ -176,86 +169,6 @@
                     <a href="{% url 'tracking_home' %}" class="btn btn-lg btn-primary">
                         <i class="fas fa-search me-2"></i> Начать отслеживание
                     </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="py-5">
-    <div class="text-center mb-5">
-        <span class="badge bg-primary mb-2">Отзывы</span>
-        <h2 class="display-6 fw-bold text-primary">Что говорят наши клиенты</h2>
-        <p class="lead text-muted">Тысячи пользователей уже выбрали Win Logistics</p>
-    </div>
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">AС</div>
-                            <div>
-                                <h5 class="mb-0">Алия С.</h5>
-                                <p class="text-muted small mb-0">Алматы</p>
-                            </div>
-                        </div>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <p class="mb-0">Удобный сервис! Теперь я всегда знаю, где находится моя посылка. Рекомендую всем, кто часто заказывает товары онлайн.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">МК</div>
-                            <div>
-                                <h5 class="mb-0">Максат К.</h5>
-                                <p class="text-muted small mb-0">Астана</p>
-                            </div>
-                        </div>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                    <p class="mb-0">Очень простой в использовании сервис. Отслеживаю все свои посылки через Win Logistics. Информация всегда актуальная и точная.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">ЕТ</div>
-                            <div>
-                                <h5 class="mb-0">Елена Т.</h5>
-                                <p class="text-muted small mb-0">Шымкент</p>
-                            </div>
-                        </div>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <p class="mb-0">Больше никаких потерянных посылок! Win Logistics позволяет мне следить за всеми моими заказами в одном месте. Спасибо за отличный сервис!</p>
                 </div>
             </div>
         </div>

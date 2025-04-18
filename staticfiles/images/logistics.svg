@@ -1,109 +1,79 @@
-<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-  <!-- Фон -->
-  <rect width="800" height="600" fill="#f8f9fa" opacity="0.1" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3e5f5" />
+      <stop offset="100%" stop-color="#e1bee7" />
+    </linearGradient>
+    <linearGradient id="packageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6a1b9a" />
+      <stop offset="100%" stop-color="#9c4dcc" />
+    </linearGradient>
+  </defs>
   
-  <!-- Дорога -->
-  <path d="M0,450 C200,500 400,420 600,480 L800,450 L800,600 L0,600 Z" fill="#e0e0e0" />
+  <!-- Background map -->
+  <rect x="50" y="50" width="700" height="500" rx="20" ry="20" fill="url(#mapGradient)" />
   
-  <!-- Линии дороги -->
-  <path d="M0,500 C200,550 400,470 600,530 L800,500" stroke="white" stroke-width="10" stroke-dasharray="40 20" />
+  <!-- Map elements -->
+  <circle cx="150" cy="200" r="40" fill="#d1c4e9" stroke="#6a1b9a" stroke-width="2" />
+  <circle cx="650" cy="400" r="40" fill="#d1c4e9" stroke="#6a1b9a" stroke-width="2" />
+  <circle cx="400" cy="150" r="30" fill="#d1c4e9" stroke="#6a1b9a" stroke-width="2" />
+  <circle cx="250" cy="450" r="25" fill="#d1c4e9" stroke="#6a1b9a" stroke-width="2" />
+  <circle cx="550" cy="200" r="35" fill="#d1c4e9" stroke="#6a1b9a" stroke-width="2" />
   
-  <!-- Грузовик -->
-  <g transform="translate(150, 400) scale(0.8)">
-    <!-- Кабина -->
-    <rect x="50" y="50" width="150" height="100" fill="#6a1b9a" rx="20" />
-    <!-- Лобовое стекло -->
-    <rect x="125" y="70" width="60" height="40" fill="#d1c4e9" rx="5" />
-    <!-- Кузов -->
-    <rect x="200" y="80" width="250" height="110" fill="#8e24aa" />
-    <!-- Колеса -->
-    <circle cx="100" cy="160" r="30" fill="#37474f" />
-    <circle cx="100" cy="160" r="15" fill="#78909c" />
-    <circle cx="250" cy="160" r="30" fill="#37474f" />
-    <circle cx="250" cy="160" r="15" fill="#78909c" />
-    <circle cx="350" cy="160" r="30" fill="#37474f" />
-    <circle cx="350" cy="160" r="15" fill="#78909c" />
-    <!-- Фары -->
-    <circle cx="50" cy="100" r="10" fill="#ffeb3b" />
-    <!-- Логотип -->
-    <text x="225" y="130" font-family="Arial" font-size="24" fill="white" font-weight="bold">WIN</text>
+  <!-- Route path -->
+  <path d="M150 200 C250 100, 300 300, 400 150 C500 50, 450 350, 550 200 C600 100, 700 300, 650 400" 
+        fill="none" stroke="#9c27b0" stroke-width="4" stroke-dasharray="10,5" />
+  
+  <!-- Start point -->
+  <circle cx="150" cy="200" r="15" fill="#4a148c" />
+  <text x="150" y="205" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">A</text>
+  
+  <!-- End point -->
+  <circle cx="650" cy="400" r="15" fill="#4caf50" />
+  <text x="650" y="405" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">B</text>
+  
+  <!-- Intermediate points -->
+  <circle cx="400" cy="150" r="10" fill="#6a1b9a" />
+  <circle cx="550" cy="200" r="10" fill="#6a1b9a" />
+  
+  <!-- Package -->
+  <g transform="translate(350, 330) rotate(-10)">
+    <rect x="-40" y="-30" width="80" height="60" fill="url(#packageGradient)" stroke="#38006b" stroke-width="3" />
+    <rect x="-40" y="-30" width="80" height="20" fill="#9c4dcc" stroke="#38006b" stroke-width="2" />
+    <line x1="0" y1="-30" x2="0" y2="30" stroke="#38006b" stroke-width="2" />
+    <line x1="-40" y1="-10" x2="40" y2="-10" stroke="#38006b" stroke-width="2" />
   </g>
   
-  <!-- Коробки/товары -->
-  <g transform="translate(600, 350) scale(0.7)">
-    <rect x="0" y="0" width="80" height="80" fill="#9c27b0" rx="5" />
-    <rect x="20" y="-60" width="60" height="60" fill="#7b1fa2" rx="5" />
-    <rect x="-40" y="-30" width="70" height="70" fill="#6a1b9a" rx="5" />
-    <!-- Штрих-код на коробке -->
-    <g transform="translate(10, 30)">
-      <rect x="0" y="0" width="5" height="30" fill="white" />
-      <rect x="10" y="0" width="3" height="30" fill="white" />
-      <rect x="18" y="0" width="4" height="30" fill="white" />
-      <rect x="26" y="0" width="6" height="30" fill="white" />
-      <rect x="36" y="0" width="2" height="30" fill="white" />
-      <rect x="43" y="0" width="5" height="30" fill="white" />
-      <rect x="52" y="0" width="4" height="30" fill="white" />
-    </g>
+  <!-- Phone with tracking -->
+  <g transform="translate(200, 300)">
+    <rect x="-30" y="-60" width="60" height="120" rx="10" ry="10" fill="white" stroke="#212121" stroke-width="3" />
+    <rect x="-25" y="-50" width="50" height="90" fill="#e1bee7" stroke="none" />
+    <rect x="-20" y="-45" width="40" height="10" rx="2" ry="2" fill="#9c27b0" />
+    <rect x="-20" y="-30" width="40" height="5" rx="2" ry="2" fill="#9c27b0" opacity="0.7" />
+    <rect x="-20" y="-20" width="40" height="5" rx="2" ry="2" fill="#9c27b0" opacity="0.7" />
+    <rect x="-20" y="-10" width="20" height="5" rx="2" ry="2" fill="#9c27b0" opacity="0.7" />
+    <rect x="-20" y="0" width="40" height="25" rx="2" ry="2" fill="#6a1b9a" />
+    <circle cx="0" cy="45" r="5" fill="#9e9e9e" />
   </g>
   
-  <!-- Склад/здание -->
-  <g transform="translate(500, 300)">
-    <!-- Основа здания -->
-    <rect x="0" y="0" width="200" height="150" fill="#bdbdbd" />
-    <!-- Крыша -->
-    <polygon points="0,0 100,-50 200,0" fill="#9e9e9e" />
-    <!-- Окна и двери -->
-    <rect x="30" y="30" width="40" height="40" fill="#bbdefb" />
-    <rect x="130" y="30" width="40" height="40" fill="#bbdefb" />
-    <rect x="80" y="80" width="40" height="70" fill="#9c27b0" />
-    <!-- Вывеска -->
-    <rect x="50" y="-20" width="100" height="30" fill="#6a1b9a" rx="5" />
-    <text x="60" y="0" font-family="Arial" font-size="16" fill="white" font-weight="bold">ЛОГИСТИКА</text>
+  <!-- Search and magnifying glass -->
+  <g transform="translate(550, 300)">
+    <circle cx="0" cy="0" r="40" fill="white" stroke="#6a1b9a" stroke-width="3" />
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#6a1b9a" stroke-width="5" />
+    <line x1="18" y1="18" x2="35" y2="35" stroke="#6a1b9a" stroke-width="8" stroke-linecap="round" />
   </g>
   
-  <!-- Человек с планшетом -->
-  <g transform="translate(350, 420) scale(0.6)">
-    <!-- Голова -->
-    <circle cx="50" cy="30" r="30" fill="#ffcc80" />
-    <!-- Тело -->
-    <rect x="30" y="60" width="40" height="80" fill="#6a1b9a" rx="10" />
-    <!-- Руки -->
-    <rect x="0" y="70" width="40" height="15" fill="#6a1b9a" rx="5" />
-    <rect x="70" y="70" width="40" height="15" fill="#6a1b9a" rx="5" />
-    <!-- Ноги -->
-    <rect x="30" y="140" width="15" height="60" fill="#424242" />
-    <rect x="55" y="140" width="15" height="60" fill="#424242" />
-    <!-- Планшет -->
-    <rect x="-20" y="50" width="50" height="70" fill="#90a4ae" rx="5" />
-    <rect x="-15" y="55" width="40" height="60" fill="#eceff1" />
-  </g>
-  
-  <!-- Элементы отслеживания/дэшборда -->
-  <g transform="translate(100, 150)">
-    <!-- Панель дэшборда -->
-    <rect x="0" y="0" width="180" height="120" fill="white" rx="10" stroke="#6a1b9a" stroke-width="3" />
-    <!-- Заголовок -->
-    <rect x="0" y="0" width="180" height="30" fill="#6a1b9a" rx="10 10 0 0" />
-    <text x="10" y="20" font-family="Arial" font-size="14" fill="white">Трек-код: WL12345</text>
-    <!-- Содержимое панели -->
-    <line x1="20" y1="50" x2="160" y2="50" stroke="#6a1b9a" stroke-width="3" />
-    <circle cx="20" cy="50" r="6" fill="#6a1b9a" />
-    <circle cx="90" cy="50" r="6" fill="#6a1b9a" />
-    <circle cx="160" cy="50" r="6" fill="#6a1b9a" />
-    <text x="15" y="70" font-family="Arial" font-size="12" fill="#757575">Склад</text>
-    <text x="75" y="70" font-family="Arial" font-size="12" fill="#757575">В пути</text>
-    <text x="140" y="70" font-family="Arial" font-size="12" fill="#757575">Доставлен</text>
-    <!-- Индикатор прогресса -->
-    <rect x="20" y="90" width="140" height="10" fill="#e0e0e0" rx="5" />
-    <rect x="20" y="90" width="70" height="10" fill="#6a1b9a" rx="5" />
-  </g>
-  
-  <!-- Декоративные элементы -->
-  <circle cx="700" cy="100" r="50" fill="#6a1b9a" opacity="0.1" />
-  <circle cx="750" cy="150" r="30" fill="#6a1b9a" opacity="0.1" />
-  <circle cx="650" cy="80" r="20" fill="#6a1b9a" opacity="0.1" />
-  
-  <!-- Облака -->
-  <path d="M100,100 C130,90 150,110 170,100 C190,90 210,120 230,110 C250,100 260,120 280,110 C260,130 240,130 220,120 C200,140 180,130 160,120 C140,130 120,120 100,100 Z" fill="white" opacity="0.8" />
-  <path d="M500,150 C530,140 550,160 570,150 C590,140 610,170 630,160 C650,150 660,170 680,160 C660,180 640,180 620,170 C600,190 580,180 560,170 C540,180 520,170 500,150 Z" fill="white" opacity="0.8" />
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="10" fill="#9c27b0" opacity="0.2" />
+  <circle cx="120" cy="120" r="6" fill="#9c27b0" opacity="0.2" />
+  <circle cx="150" cy="90" r="8" fill="#9c27b0" opacity="0.2" />
+  <circle cx="700" cy="150" r="10" fill="#9c27b0" opacity="0.2" />
+  <circle cx="680" cy="170" r="6" fill="#9c27b0" opacity="0.2" />
+  <circle cx="650" cy="140" r="8" fill="#9c27b0" opacity="0.2" />
+  <circle cx="100" cy="500" r="10" fill="#9c27b0" opacity="0.2" />
+  <circle cx="120" cy="480" r="6" fill="#9c27b0" opacity="0.2" />
+  <circle cx="150" cy="510" r="8" fill="#9c27b0" opacity="0.2" />
+  <circle cx="700" cy="450" r="10" fill="#9c27b0" opacity="0.2" />
+  <circle cx="680" cy="470" r="6" fill="#9c27b0" opacity="0.2" />
+  <circle cx="650" cy="460" r="8" fill="#9c27b0" opacity="0.2" />
 </svg>
