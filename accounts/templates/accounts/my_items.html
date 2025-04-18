@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои товары - Win Logistics{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">Мои товары</h2>
+        <a href="{% url 'tracking_home' %}" class="btn btn-light">
+            <i class="fas fa-plus me-2"></i> Добавить новый трек-код
+        </a>
+    </div>
+    <div class="card-body">
+        {% if user_tracking_codes %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Трек-код</th>
+                            <th>Текущий статус</th>
+                            <th>Дата обновления</th>
+                            <th>Дата добавления</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_tracking in user_tracking_codes %}
+                        <tr>
+                            <td>{{ user_tracking.tracking_code.code }}</td>
+                            <td>
+                                <span class="badge bg-{{ user_tracking.tracking_code.status|stringformat:'s' }}">
+                                    {{ user_tracking.tracking_code.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ user_tracking.tracking_code.updated_at|date:"d.m.Y H:i" }}</td>
+                            <td>{{ user_tracking.added_at|date:"d.m.Y" }}</td>
+                            <td>
+                                <a href="{% url 'tracking_detail' user_tracking.tracking_code.code %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye me-1"></i> Детали
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <style>
+                /* Custom badge colors based on status */
+                .badge.bg-1 { background-color: #6c757d; } /* Warehouse */
+                .badge.bg-2 { background-color: #17a2b8; } /* Dispatched */
+                .badge.bg-3 { background-color: #ffc107; } /* Almaty */
+                .badge.bg-4 { background-color: #fd7e14; } /* Aktobe */
+                .badge.bg-5 { background-color: #28a745; } /* Delivered */
+            </style>
+            
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-box-open fa-5x text-muted mb-4"></i>
+                <h3 class="text-muted">У вас пока нет сохраненных товаров</h3>
+                <p class="lead">Добавьте трек-коды товаров для отслеживания.</p>
+                <a href="{% url 'tracking_home' %}" class="btn btn-primary btn-lg mt-3">
+                    <i class="fas fa-search me-2"></i> Найти товар по трек-коду
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if user_tracking_codes %}
+<div class="card mt-4 shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">Статистика посылок</h3>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-primary text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-boxes fa-3x text-primary mb-3"></i>
+                        <h4>{{ user_tracking_codes.count }}</h4>
+                        <p class="text-muted">Всего посылок</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-warning text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-truck fa-3x text-warning mb-3"></i>
+                        <h4>{{ user_tracking_codes|length|default:"0" }}</h4>
+                        <p class="text-muted">Активных посылок</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-success text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <h4>0</h4>
+                        <p class="text-muted">Доставлено</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

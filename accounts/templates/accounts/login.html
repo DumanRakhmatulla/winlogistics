@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Вход - Win Logistics{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h2 class="mb-0">Вход в систему</h2>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.username|as_crispy_field }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password|as_crispy_field }}
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="fas fa-sign-in-alt me-2"></i> Войти
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p>Еще нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4 bg-light">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Преимущества регистрации</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light">
+                        <i class="fas fa-save text-primary me-2"></i> Сохранение трек-кодов в личном кабинете
+                    </li>
+                    <li class="list-group-item bg-light">
+                        <i class="fas fa-history text-primary me-2"></i> История отслеживания посылок
+                    </li>
+                    <li class="list-group-item bg-light">
+                        <i class="fas fa-bell text-primary me-2"></i> Быстрый доступ к вашим товарам
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали отслеживания - Win Logistics{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">Информация о посылке</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h4 class="text-primary">Трек-код</h4>
+                        <p class="h5">{{ tracking.code }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-primary">Текущий статус</h4>
+                        <p class="h5">{{ tracking.get_status_display }}</p>
+                    </div>
+                </div>
+                
+                <div class="tracking-progress mb-5">
+                    <div class="tracking-progress-line"></div>
+                    <div class="tracking-progress-line-fill" style="width: {% if tracking.status == '1' %}10%{% elif tracking.status == '2' %}30%{% elif tracking.status == '3' %}50%{% elif tracking.status == '4' %}75%{% elif tracking.status == '5' %}100%{% else %}0%{% endif %}"></div>
+                    
+                    <div class="tracking-progress-bar">
+                        <div class="tracking-step {% if tracking.status == '1' or tracking.status == '2' or tracking.status == '3' or tracking.status == '4' or tracking.status == '5' %}active{% endif %} {% if tracking.status == '2' or tracking.status == '3' or tracking.status == '4' or tracking.status == '5' %}completed{% endif %}">
+                            <span class="tracking-step-dot"></span>
+                            <span class="tracking-step-label">Товар на складе</span>
+                        </div>
+                        <div class="tracking-step {% if tracking.status == '2' or tracking.status == '3' or tracking.status == '4' or tracking.status == '5' %}active{% endif %} {% if tracking.status == '3' or tracking.status == '4' or tracking.status == '5' %}completed{% endif %}">
+                            <span class="tracking-step-dot"></span>
+                            <span class="tracking-step-label">Товар отправлен</span>
+                        </div>
+                        <div class="tracking-step {% if tracking.status == '3' or tracking.status == '4' or tracking.status == '5' %}active{% endif %} {% if tracking.status == '4' or tracking.status == '5' %}completed{% endif %}">
+                            <span class="tracking-step-dot"></span>
+                            <span class="tracking-step-label">Товар в Алматы</span>
+                        </div>
+                        <div class="tracking-step {% if tracking.status == '4' or tracking.status == '5' %}active{% endif %} {% if tracking.status == '5' %}completed{% endif %}">
+                            <span class="tracking-step-dot"></span>
+                            <span class="tracking-step-label">Товар в Актобе</span>
+                        </div>
+                        <div class="tracking-step {% if tracking.status == '5' %}active{% endif %}">
+                            <span class="tracking-step-dot"></span>
+                            <span class="tracking-step-label">Товар у клиента</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h4 class="text-primary">Дата создания</h4>
+                        <p>{{ tracking.created_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-primary">Последнее обновление</h4>
+                        <p>{{ tracking.updated_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{% url 'tracking_home' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i> Назад к поиску
+                    </a>
+                    
+                    {% if user.is_authenticated %}
+                        {% if not user_has_tracking %}
+                        <a href="{% url 'add_to_profile' tracking.code %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i> Добавить в мой профиль
+                        </a>
+                        {% else %}
+                        <button class="btn btn-success" disabled>
+                            <i class="fas fa-check me-2"></i> Уже в вашем профиле
+                        </button>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">
+                            <i class="fas fa-user me-2"></i> Войдите, чтобы сохранить
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

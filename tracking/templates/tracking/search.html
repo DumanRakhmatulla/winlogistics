@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Поиск товара - Win Logistics{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="text-center mb-4">
+            <h1 class="text-primary">Поиск по трек-коду</h1>
+            <p class="lead">Введите трек-код вашей посылки, чтобы узнать её текущее местоположение и статус</p>
+        </div>
+        
+        <div class="search-box mb-5">
+            <form method="post" action="{% url 'search_tracking' %}">
+                {% csrf_token %}
+                <div class="input-group input-group-lg">
+                    {{ form.tracking_code }}
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search me-2"></i> Отследить
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        {% if messages %}
+        <div class="text-center">
+            <div class="alert alert-info p-4">
+                <i class="fas fa-info-circle fa-2x mb-3 text-primary"></i>
+                <h4>Результаты поиска</h4>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                <p class="mt-3">Проверьте правильность введенного трек-кода и попробуйте снова.</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="text-center mt-5">
+            <p>Не знаете свой трек-код?</p>
+            <p>Свяжитесь с нашей службой поддержки: <a href="mailto:support@win-logistics.kz">support@win-logistics.kz</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
