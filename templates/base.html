@@ -5,15 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Win Logistics - Отслеживание посылок{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/logo.jpg' %}" type="image/png">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
                     <img src="{% static 'images/logo.jpg' %}" alt="Win Logistics Logo" width="40" height="40" class="d-inline-block me-2">
@@ -25,19 +32,27 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Главная</a>
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+                                <i class="fas fa-home me-1"></i> Главная
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/tracking/' %}active{% endif %}" href="{% url 'tracking_home' %}">Отслеживание</a>
+                            <a class="nav-link {% if request.path == '/tracking/' %}active{% endif %}" href="{% url 'tracking_home' %}">
+                                <i class="fas fa-search me-1"></i> Отслеживание
+                            </a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/accounts/my-items/' %}active{% endif %}" href="{% url 'my_items' %}">Мои товары</a>
+                            <a class="nav-link {% if request.path == '/accounts/my-items/' %}active{% endif %}" href="{% url 'my_items' %}">
+                                <i class="fas fa-box me-1"></i> Мои товары
+                            </a>
                         </li>
                         {% endif %}
                         {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/tracking/admin-panel/' %}active{% endif %}" href="{% url 'admin_panel' %}">Панель администратора</a>
+                            <a class="nav-link {% if request.path == '/tracking/admin-panel/' %}active{% endif %}" href="{% url 'admin_panel' %}">
+                                <i class="fas fa-cog me-1"></i> Админ-панель
+                            </a>
                         </li>
                         {% endif %}
                     </ul>
@@ -45,20 +60,37 @@
                         {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-1"></i> {{ user.username }}
+                                <i class="fas fa-user-circle me-1"></i> {{ user.username }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'profile' %}">
+                                        <i class="fas fa-id-card me-2"></i> Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'my_items' %}">
+                                        <i class="fas fa-box me-2"></i> Мои товары
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Выйти
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                            <a class="nav-link" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt me-1"></i> Войти
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                            <a class="nav-link" href="{% url 'register' %}">
+                                <i class="fas fa-user-plus me-1"></i> Регистрация
+                            </a>
                         </li>
                         {% endif %}
                     </ul>
@@ -67,10 +99,19 @@
         </nav>
     </header>
 
-    <main class="container py-4">
+    <main class="container py-4 fade-in">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                    {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle me-2"></i>
+                    {% elif message.tags == 'info' %}
+                        <i class="fas fa-info-circle me-2"></i>
+                    {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                    {% elif message.tags == 'error' %}
+                        <i class="fas fa-times-circle me-2"></i>
+                    {% endif %}
                     {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -83,26 +124,35 @@
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h5>О компании</h5>
-                    <p>Win Logistics - система отслеживания товаров по трек-коду для эффективного управления логистическими процессами.</p>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4 border-bottom pb-2">О компании</h5>
+                    <p>Win Logistics - современная система отслеживания товаров по трек-коду для эффективного управления логистическими процессами.</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="text-white me-3" data-bs-toggle="tooltip" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3" data-bs-toggle="tooltip" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3" data-bs-toggle="tooltip" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white" data-bs-toggle="tooltip" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Контакты</h5>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4 border-bottom pb-2">Контакты</h5>
                     <p><i class="fas fa-envelope me-2"></i> info@win-logistics.kz</p>
                     <p><i class="fas fa-phone me-2"></i> +7 (777) 123-45-67</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> г. Алматы, ул. Примерная, 123</p>
                 </div>
                 <div class="col-md-4">
-                    <h5>Ссылки</h5>
+                    <h5 class="mb-4 border-bottom pb-2">Полезные ссылки</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'home' %}" class="text-white">Главная</a></li>
-                        <li><a href="{% url 'tracking_home' %}" class="text-white">Отслеживание</a></li>
+                        <li class="mb-2"><a href="{% url 'home' %}" class="text-white"><i class="fas fa-angle-right me-2"></i>Главная</a></li>
+                        <li class="mb-2"><a href="{% url 'tracking_home' %}" class="text-white"><i class="fas fa-angle-right me-2"></i>Отслеживание</a></li>
+                        <li class="mb-2"><a href="#" class="text-white"><i class="fas fa-angle-right me-2"></i>Условия использования</a></li>
+                        <li class="mb-2"><a href="#" class="text-white"><i class="fas fa-angle-right me-2"></i>Политика конфиденциальности</a></li>
                     </ul>
                 </div>
             </div>
-            <hr>
+            <hr class="mt-4">
             <div class="text-center">
-                <p>&copy; 2025 Win Logistics. Все права защищены.</p>
+                <p class="mb-0">&copy; 2025 Win Logistics. Все права защищены.</p>
             </div>
         </div>
     </footer>
@@ -111,5 +161,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
+    <!-- Page specific JS -->
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
