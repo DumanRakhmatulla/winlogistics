@@ -88,7 +88,7 @@
                 <div class="card border-warning text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-truck fa-3x text-warning mb-3"></i>
-                        <h4>{{ user_tracking_codes|length|default:"0" }}</h4>
+                        <h4>{{ active_count|default:"0" }}</h4>
                         <p class="text-muted">Активных посылок</p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                 <div class="card border-success text-center h-100">
                     <div class="card-body">
                         <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-                        <h4>0</h4>
+                        <h4>{{ delivered_count|default:"0" }}</h4>
                         <p class="text-muted">Доставлено</p>
                     </div>
                 </div>
